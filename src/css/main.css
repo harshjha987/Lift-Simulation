@@ -1,0 +1,74 @@
+.container{
+    
+    margin: auto ;
+   
+    width: 100%;
+    
+    background-color: white;
+    margin-top: 100px;
+   border-radius: 10px;
+    box-shadow: 40px  ;
+    box-sizing: border-box;
+    height: auto;
+    
+    
+  
+    
+}
+
+
+@media (min-width: 768px) {
+    .container {
+      width: 550px; /* Width for medium screens (tablets) */
+    }
+  }
+
+h1{
+    text-align: center;
+    padding-top: 35px;
+    text-decoration: underline;
+
+    
+}
+button{
+    
+    padding: 10px;
+    background-color: rgb(153, 0, 255);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin: 20px 190px ;
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 2px;
+}
+.floors{
+    padding: 10px;
+    flex-direction: row;
+    font-size: 22px;
+    margin-left: 20px;
+    display: flex;
+}
+.lifts{
+    padding: 10px;
+    margin-left: 20px;
+    flex-direction: row;
+    font-size: 22px;
+    
+}
+input{
+   padding: 7px;
+   border-radius: 5px;
+   
+  
+   
+}
+p{
+    margin-left: 18px;
+    padding-bottom: 15px;
+    font-size: 20px;
+    font-weight: semi-bold;
+}
+body{
+    background-color: antiquewhite
+}

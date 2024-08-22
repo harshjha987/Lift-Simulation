@@ -1,6 +1,7 @@
 const form = document.getElementById('form');
 const main = document.getElementsByClassName('start')[0];
 const buildingFloor = document.getElementById('floor-section');
+const body = document.querySelector('.container');
 
 const liftState = {
     lifts: [],
@@ -10,6 +11,12 @@ const liftState = {
 form.addEventListener('submit', function(event) {
     event.preventDefault();
     main.style.display = "none";
+    document.body.style.justifyContent = "flex-start";
+            document.body.style.alignItems = "flex-start";
+            document.documentElement.style.justifyContent = "flex-start"; // for html element
+            document.documentElement.style.alignItems = "flex-start"; 
+        
+    
     const floorCount = document.getElementById('floors').value;
     const liftCount = document.getElementById('lifts').value;
 
@@ -91,6 +98,7 @@ function createLifts(lifts) {
 }
 
 function moveLift(liftIndex, targetFloor) {
+    
     const lift = liftState.lifts[liftIndex];
     const floorsToMove = Math.abs(lift.currentFloor - targetFloor);
     const moveDuration = floorsToMove * 1000;
@@ -102,15 +110,17 @@ function moveLift(liftIndex, targetFloor) {
     const liftElement = document.querySelectorAll('.lift-section')[liftIndex];
     
 
-    liftElement.style.transition = `transform ${moveDuration}ms ease-in-out`;
-    liftElement.style.transform = `translateY(-${(targetFloor) * 160}px)`; // Negative for upward movement
 
     setTimeout(() => {
+        
         lift.currentFloor = targetFloor;
         openDoors(liftIndex);
        
        
     }, moveDuration);
+    
+    liftElement.style.transition = `transform ${moveDuration}ms ease-in-out`;
+    liftElement.style.transform = `translateY(-${(targetFloor) * 160 }px)`; // Negative for upward movement
 }
 function checkPendingRequests() {
     liftState.floors.forEach((floor, index) => {

@@ -3,9 +3,10 @@ body, html {
     height: 100%;
     margin: 0;
     display: flex;
-    justify-content: center; /* Centers horizontally */
-    align-items: center;   /* Centers vertically */
+    justify-content: center; 
+   align-items: center;   
 }
+
 
 .container {
     width: 70%; /* Default to 90% for smaller screens */
@@ -16,7 +17,7 @@ body, html {
     border-radius: 20px;
     justify-content: center; /* Center horizontally */
     align-items: center;
-    max-height: 90vh; /* Ensure it doesn't exceed viewport height */
+    max-height: 100vh; /* Ensure it doesn't exceed viewport height */
     
 }
 
@@ -85,15 +86,16 @@ h1 {
 
 .floor-section {
     border-bottom: 2px solid green;
-    max-height: 150px;
+    
     height: 150px;
     display: flex;
     align-items: center;
     
-    margin: 10px;
+    margin: 10px 0;
     z-index: 1;
     font-size: 20px;
     padding-left: 15px;
+    box-shadow: 5px 5px 5px 5px;
    
     
   }
@@ -109,9 +111,12 @@ h1 {
     border: 1px solid blue;
     height: 100px;
     width: 80px;
-
+    text-align: center;
     text-align: center;
     background-color: bisque;
+     display: flex;
+    align-items: center; /* Align content vertically */
+    justify-content: center;
 }
   .button-section{
     border: none;
@@ -139,6 +144,7 @@ h1 {
     justify-content: space-between;
     border: 2px solid #333;
     margin-left: 60px; /* Add some space from the floor number */
+    align-items: center;
 }
 .lift-section div {
     width: 45%; /* Each door takes up half of the lift width with a small gap */

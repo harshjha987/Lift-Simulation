@@ -16,10 +16,13 @@ body, html {
     border-radius: 20px;
     justify-content: center; /* Center horizontally */
     align-items: center;
+    max-height: 90vh; /* Ensure it doesn't exceed viewport height */
+    
 }
 
 h1 {
     text-align: center;
+    text-decoration: underline;
 }
 
 .start {
@@ -86,7 +89,7 @@ h1 {
     height: 150px;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    
     margin: 10px;
     z-index: 1;
     font-size: 20px;
@@ -129,7 +132,7 @@ h1 {
   }
   .lift-section {
     position: relative;
-    width: 60px; /* Width of the entire lift */
+    width: 80px; /* Width of the entire lift */
     height: 100px; /* Height of the lift */
     background-color: #ddd;
     display: flex;

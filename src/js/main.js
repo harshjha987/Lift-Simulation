@@ -19,7 +19,7 @@ form.addEventListener('submit', function(event) {
 
 function createFloors(floors, lifts) {
     const viewportWidth = window.innerWidth;
-    const calculatedWidth = 100 * lifts;
+    const calculatedWidth = 200 * lifts;
     buildingFloor.innerHTML = '';
     for (let i = 0; i < floors; i++) {
         const floorSection = document.createElement('div');
@@ -94,6 +94,7 @@ function moveLift(liftIndex, targetFloor) {
     const lift = liftState.lifts[liftIndex];
     const floorsToMove = Math.abs(lift.currentFloor - targetFloor);
     const moveDuration = floorsToMove * 1000;
+    
 
     lift.isMoving = true;
     lift.targetFloor = targetFloor;
@@ -102,7 +103,7 @@ function moveLift(liftIndex, targetFloor) {
     
 
     liftElement.style.transition = `transform ${moveDuration}ms ease-in-out`;
-    liftElement.style.transform = `translateY(-${(targetFloor) * 150}px)`; // Negative for upward movement
+    liftElement.style.transform = `translateY(-${(targetFloor) * 160}px)`; // Negative for upward movement
 
     setTimeout(() => {
         lift.currentFloor = targetFloor;

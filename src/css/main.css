@@ -1,74 +1,166 @@
-.container{
-    
-    margin: auto ;
-   
-    width: 100%;
-    
-    background-color: white;
-    margin-top: 100px;
-   border-radius: 10px;
-    box-shadow: 40px  ;
-    box-sizing: border-box;
-    height: auto;
-    
-    
-  
-    
-}
-
-
-@media (min-width: 768px) {
-    .container {
-      width: 550px; /* Width for medium screens (tablets) */
-    }
-  }
-
-h1{
-    text-align: center;
-    padding-top: 35px;
-    text-decoration: underline;
-
-    
-}
-button{
-    
-    padding: 10px;
-    background-color: rgb(153, 0, 255);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    margin: 20px 190px ;
-    font-weight: bold;
-    font-size: 15px;
-    margin-bottom: 2px;
-}
-.floors{
-    padding: 10px;
-    flex-direction: row;
-    font-size: 22px;
-    margin-left: 20px;
+/* Base styles */
+body, html {
+    height: 100%;
+    margin: 0;
     display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;   /* Centers vertically */
 }
-.lifts{
+
+.container {
+    width: 70%; /* Default to 90% for smaller screens */
+    max-width: 550px; /* Max width of 550px */
+   
+    
+    padding: 20px;
+    border-radius: 20px;
+    justify-content: center; /* Center horizontally */
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+.start {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.start label,
+.start input {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.start input {
+    padding: 5px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 80%; /* Full width for input */
+}
+
+#btn {
+    border-radius: 8px;
     padding: 10px;
-    margin-left: 20px;
-    flex-direction: row;
-    font-size: 22px;
+    background-color: rgb(101, 43, 226);
+    color: white;
+    text-align: center;
+    border: none;
+    cursor: pointer; 
+    margin-top: 20px;
+    width: 100%; /* Full width for button */
+}
+
+/* Responsive styles */
+@media (min-width: 600px) {
+    .container {
+        width: 80%; /* Adjust width for medium screens */
+    }
+
+    #btn {
+        width: 50%; /* Adjust button width for medium screens */
+        margin-left: auto; /* Center the button */
+        margin-right: auto; /* Center the button */
+    }
+}
+
+@media (min-width: 900px) {
+    .container {
+        width: 550px; /* Use fixed width for larger screens */
+    }
+
+    #btn {
+        width: 50%; /* Adjust button width for larger screens */
+        margin-left: auto; /* Center the button */
+        margin-right: auto; /* Center the button */
+    }
+}
+
+.floor-section {
+    border-bottom: 2px solid green;
+    max-height: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 10px;
+    z-index: 1;
+    font-size: 20px;
+    padding-left: 15px;
+   
+    
+  }
+  .floor-section p {
+    margin: 0;
+    font-weight: bold;
+    margin-top: 30px;
+    font-family: italic;
+    color: #310505;
     
 }
-input{
-   padding: 7px;
-   border-radius: 5px;
-   
-  
-   
+.floor-area{
+    border: 1px solid blue;
+    height: 100px;
+    width: 80px;
+
+    text-align: center;
+    background-color: bisque;
 }
-p{
-    margin-left: 18px;
-    padding-bottom: 15px;
-    font-size: 20px;
-    font-weight: semi-bold;
+  .button-section{
+    border: none;
+    padding: 5px;
+    gap: 10px;
+    
+  }
+  .button-section button{
+        border-radius: 5px;
+        padding: 5px;
+       margin: 10px;
+       background-color: rgb(101, 43, 226);
+    color: white;
+    
+    border: none;
+    cursor: pointer; 
+
+  }
+  .lift-section {
+    position: relative;
+    width: 60px; /* Width of the entire lift */
+    height: 100px; /* Height of the lift */
+    background-color: #ddd;
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid #333;
+    margin-left: 60px; /* Add some space from the floor number */
 }
-body{
-    background-color: antiquewhite
+.lift-section div {
+    width: 45%; /* Each door takes up half of the lift width with a small gap */
+    height: 100%;
+    background-color: #666; /* Color of the lift doors */
 }
+.door {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    background-color: #444;
+    transition: all 2.5s ease-in-out; 
+}
+
+.left-door {
+    left: 0;
+    transition: left 2.5s;
+    transform-origin: left;
+}
+
+.right-door {
+    right: 0;
+    transition: right 2.5s;
+    transform-origin: right;
+}
+
+
+

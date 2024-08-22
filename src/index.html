@@ -2,34 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lift Simulation</title>
-    <link rel="stylesheet" href="./css/main.css">
+    <title>Lift-simulation</title>
+    <link rel="stylesheet" href="./css/main.css" />
 </head>
 <body>
     <div class="container">
-        <div>
-            <h1>Lift Simulation</h1>
-        </div>
-        
-      
-        <div class="floors">
-            <label>Enter number of floors: </label>
+        <h1>Lift Simulation</h1>
+        <form  id="form">
+        <div class="start" >
             
-            <input id="floor" type="number" required />
-        </div>
-        <div class="lifts">
-            <label>Enter number of lifts: </label>
-            
-            <input id="lift" type="number" required/>
-        </div>
-        <div>
-            <button type="submit" id="btn">Start Simulation</button>
+                <label for="floors">Enter number of Floors :</label>
+                <input id="floors" type="number" min="2" max="50" required placeholder="Floors" />
+                <label for="lifts" >Enter number of lifts: </label>
+                <input id="lifts" type="number" min="1" max="50" required placeholder="Lifts" />
+                <button type="submit" id="btn">Start Simulation</button>
         <p>	&#128161;Enter number of floors and number of lifts and click start simulation button.</p>
+           
+            
         </div>
+    </form>
+        
+        
+            <div id="floor-section"></div>
+           
+
         
     </div>
-<script src="./js/main.js"></script>
+
+    <script src="./js/main.js"></script>
 </body>
 </html>

@@ -124,9 +124,6 @@ function moveLift(liftIndex, targetFloor, direction) {
 
     const liftElement = document.querySelectorAll('.lift-section')[liftIndex];
 
-    // Disable all buttons on the target floor to prevent other lifts from being called
-    disableFloorButtons(targetFloor);
-
     setTimeout(() => {
         lift.currentFloor = targetFloor;
         openDoors(liftIndex, targetFloor, direction);
@@ -135,6 +132,7 @@ function moveLift(liftIndex, targetFloor, direction) {
     liftElement.style.transition = `transform ${moveDuration}ms ease-in-out`;
     liftElement.style.transform = `translateY(-${targetFloor * 150}px)`; // Negative for upward movement
 }
+
 function disableFloorButtons(floorNumber) {
     const upButton = document.getElementById(`up${floorNumber}`);
     const downButton = document.getElementById(`down${floorNumber}`);
@@ -143,18 +141,22 @@ function disableFloorButtons(floorNumber) {
     if (downButton) downButton.disabled = true;
 }
 
-
 function handleRequest(floorNumber, direction) {
     const buttonId = direction === "up" ? `up${floorNumber}` : `down${floorNumber}`;
     const button = document.getElementById(buttonId);
+
+    // Disable the button as soon as the request is made
     button.disabled = true;
 
-    const existingCall = liftState.liftCalls.find(call => call.floor === floorNumber && call.direction === direction);
+    const call = { floor: floorNumber, direction };
 
-    if (!existingCall) {
-        const call = { floor: floorNumber, direction: direction };
-        liftState.liftCalls.push(call);
-        processLiftQueue();
+    // Find the closest available lift
+    const availableLift = findClosestLift(floorNumber, direction);
+
+    if (availableLift !== null) {
+        moveLift(availableLift, call.floor, call.direction);
+    } else {
+        liftState.liftCalls.push(call); // Add to queue if no lift is available
     }
 }
 
@@ -172,7 +174,7 @@ function processLiftQueue() {
     if (liftState.liftCalls.length === 0) return;
 
     liftState.liftCalls.forEach((call, index) => {
-        const availableLift = findClosestLift(call.floor);
+        const availableLift = findClosestLift(call.floor, call.direction);
 
         if (availableLift !== null) {
             moveLift(availableLift, call.floor, call.direction);
@@ -200,7 +202,7 @@ function openDoors(liftIndex, targetFloor, direction) {
         leftDoor.style.transform = `scaleX(1)`;
         rightDoor.style.transform = `scaleX(1)`;
 
-        // Keep the button disabled until the doors are fully closed
+        // Re-enable the button after the doors are fully closed
         setTimeout(() => {
             const buttonId = direction === "up" ? `up${targetFloor}` : `down${targetFloor}`;
             const button = document.getElementById(buttonId);
@@ -209,18 +211,18 @@ function openDoors(liftIndex, targetFloor, direction) {
             // Reset the lift state to be ready for the next request
             liftState.lifts[liftIndex].isMoving = false;
             liftState.lifts[liftIndex].targetFloor = null;
-            processLiftQueue();
+            processLiftQueue(); // Process any pending requests in the queue
         }, 2500); // 2.5s for doors to close
 
     }, 2500); // 2.5s for doors to open
 }
 
-function findClosestLift(targetFloor) {
+function findClosestLift(targetFloor, direction) {
     let closestLift = null;
     let minDistance = Infinity;
 
     liftState.lifts.forEach((lift, index) => {
-        // Check if the lift is not moving and is not already assigned to the target floor
+        // Check if the lift is not moving and is not already assigned to another target
         if (!lift.isMoving && lift.targetFloor === null) {
             const distance = Math.abs(lift.currentFloor - targetFloor);
             if (distance < minDistance) {

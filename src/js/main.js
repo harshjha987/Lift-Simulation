@@ -114,7 +114,7 @@ function createLifts(lifts) {
     }
 }
 
-function moveLift(liftIndex, targetFloor) {
+function moveLift(liftIndex, targetFloor, direction) {
     const lift = liftState.lifts[liftIndex];
     const floorsToMove = Math.abs(lift.currentFloor - targetFloor);
     const moveDuration = floorsToMove * 2000;
@@ -124,19 +124,38 @@ function moveLift(liftIndex, targetFloor) {
 
     const liftElement = document.querySelectorAll('.lift-section')[liftIndex];
 
+    // Disable all buttons on the target floor to prevent other lifts from being called
+    disableFloorButtons(targetFloor);
+
     setTimeout(() => {
         lift.currentFloor = targetFloor;
-        openDoors(liftIndex);
+        openDoors(liftIndex, targetFloor, direction);
     }, moveDuration);
 
     liftElement.style.transition = `transform ${moveDuration}ms ease-in-out`;
     liftElement.style.transform = `translateY(-${targetFloor * 150}px)`; // Negative for upward movement
 }
+function disableFloorButtons(floorNumber) {
+    const upButton = document.getElementById(`up${floorNumber}`);
+    const downButton = document.getElementById(`down${floorNumber}`);
+
+    if (upButton) upButton.disabled = true;
+    if (downButton) downButton.disabled = true;
+}
+
 
 function handleRequest(floorNumber, direction) {
-    const call = { floor: floorNumber, direction: direction };
-    liftState.liftCalls.push(call);
-    processLiftQueue();
+    const buttonId = direction === "up" ? `up${floorNumber}` : `down${floorNumber}`;
+    const button = document.getElementById(buttonId);
+    button.disabled = true;
+
+    const existingCall = liftState.liftCalls.find(call => call.floor === floorNumber && call.direction === direction);
+
+    if (!existingCall) {
+        const call = { floor: floorNumber, direction: direction };
+        liftState.liftCalls.push(call);
+        processLiftQueue();
+    }
 }
 
 
@@ -152,15 +171,18 @@ function checkPendingRequests() {
 function processLiftQueue() {
     if (liftState.liftCalls.length === 0) return;
 
-    const availableLift = findClosestLift(liftState.liftCalls[0].floor);
+    liftState.liftCalls.forEach((call, index) => {
+        const availableLift = findClosestLift(call.floor);
 
-    if (availableLift !== null) {
-        const call = liftState.liftCalls.shift();
-        moveLift(availableLift, call.floor);
-    }
+        if (availableLift !== null) {
+            moveLift(availableLift, call.floor, call.direction);
+            liftState.liftCalls.splice(index, 1); // Remove the processed call
+        }
+    });
 }
 
-function openDoors(liftIndex) {
+
+function openDoors(liftIndex, targetFloor, direction) {
     const liftElem = document.querySelectorAll('.lift-section')[liftIndex];
     const leftDoor = liftElem.querySelector('.left-door');
     const rightDoor = liftElem.querySelector('.right-door');
@@ -178,6 +200,11 @@ function openDoors(liftIndex) {
         rightDoor.style.transform = `scaleX(1)`;
         rightDoor.style.transition = `transform 2.5s`;
 
+        // Re-enable the button for the respective floor and direction
+        const buttonId = direction === "up" ? `up${targetFloor}` : `down${targetFloor}`;
+        const button = document.getElementById(buttonId);
+        button.disabled = false;
+
         setTimeout(() => {
             liftState.lifts[liftIndex].isMoving = false;
             liftState.lifts[liftIndex].targetFloor = null;
@@ -185,13 +212,12 @@ function openDoors(liftIndex) {
         }, 2500);
     }, 2500);
 }
-
-
 function findClosestLift(targetFloor) {
     let closestLift = null;
     let minDistance = Infinity;
 
     liftState.lifts.forEach((lift, index) => {
+        // Check if the lift is not moving and is not already assigned to the target floor
         if (!lift.isMoving && lift.targetFloor === null) {
             const distance = Math.abs(lift.currentFloor - targetFloor);
             if (distance < minDistance) {
@@ -203,3 +229,4 @@ function findClosestLift(targetFloor) {
 
     return closestLift;
 }
+

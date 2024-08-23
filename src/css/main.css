@@ -151,6 +151,15 @@ h1 {
     cursor: pointer; 
 
   }
+  .button-section button:hover{
+    background-color: blue;
+  }
+  button:disabled {
+    background-color: #cccccc; /* Gray background */
+    color: #666666; /* Dark gray text */
+    cursor: not-allowed; /* Not-allowed cursor */
+    opacity: 0.6; /* Slight transparency */
+}
   .lift-section {
     position: relative;
     width: 80px; /* Width of the entire lift */

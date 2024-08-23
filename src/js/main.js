@@ -117,7 +117,7 @@ function createLifts(lifts) {
 function moveLift(liftIndex, targetFloor) {
     const lift = liftState.lifts[liftIndex];
     const floorsToMove = Math.abs(lift.currentFloor - targetFloor);
-    const moveDuration = floorsToMove * 1000;
+    const moveDuration = floorsToMove * 2000;
 
     lift.isMoving = true;
     lift.targetFloor = targetFloor;

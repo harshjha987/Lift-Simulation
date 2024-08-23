@@ -187,31 +187,34 @@ function openDoors(liftIndex, targetFloor, direction) {
     const leftDoor = liftElem.querySelector('.left-door');
     const rightDoor = liftElem.querySelector('.right-door');
 
+    // Start opening doors
     setTimeout(() => {
         leftDoor.style.transform = `scaleX(0)`;
         leftDoor.style.transition = `transform 2.5s`;
         rightDoor.style.transform = `scaleX(0)`;
         rightDoor.style.transition = `transform 2.5s`;
-    }, 0); // Start opening immediately
+    }, 0);
 
+    // Start closing doors after 2.5 seconds
     setTimeout(() => {
         leftDoor.style.transform = `scaleX(1)`;
-        leftDoor.style.transition = `transform 2.5s`;
         rightDoor.style.transform = `scaleX(1)`;
-        rightDoor.style.transition = `transform 2.5s`;
 
-        // Re-enable the button for the respective floor and direction
-        const buttonId = direction === "up" ? `up${targetFloor}` : `down${targetFloor}`;
-        const button = document.getElementById(buttonId);
-        button.disabled = false;
-
+        // Keep the button disabled until the doors are fully closed
         setTimeout(() => {
+            const buttonId = direction === "up" ? `up${targetFloor}` : `down${targetFloor}`;
+            const button = document.getElementById(buttonId);
+            button.disabled = false; // Re-enable the button
+
+            // Reset the lift state to be ready for the next request
             liftState.lifts[liftIndex].isMoving = false;
             liftState.lifts[liftIndex].targetFloor = null;
             processLiftQueue();
-        }, 2500);
-    }, 2500);
+        }, 2500); // 2.5s for doors to close
+
+    }, 2500); // 2.5s for doors to open
 }
+
 function findClosestLift(targetFloor) {
     let closestLift = null;
     let minDistance = Infinity;

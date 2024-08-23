@@ -85,20 +85,28 @@ h1 {
 }
 
 .floor-section {
-    border-bottom: 2px solid green;
-    
+    border-bottom: 2px solid rgb(28, 0, 128);
     height: 150px;
     display: flex;
     align-items: center;
-    
-    margin: 10px 0;
+    margin: 0; /* Remove margin to prevent unexpected height changes */
     z-index: 1;
     font-size: 20px;
     padding-left: 15px;
-    box-shadow: 5px 5px 5px 5px;
-   
-    
-  }
+    box-sizing: border-box; /* Ensures padding is included within the height */
+    box-shadow: 10px 10px 10px 10px white;
+     /* Box shadow with transparency */
+     background-color: #444;
+     padding: 10px;
+}
+
+/* Optional: Add spacing between floors using padding */
+.floor-section + .floor-section {
+    padding-top: 10px; 
+    padding-bottom: 10px;
+    /* Add spacing between floor sections */
+}
+
   .floor-section p {
     margin: 0;
     font-weight: bold;
@@ -109,8 +117,8 @@ h1 {
 }
 .floor-area{
     border: 1px solid blue;
-    height: 100px;
-    width: 80px;
+    height: 100%;
+    width: 90px;
     text-align: center;
     text-align: center;
     background-color: bisque;
@@ -123,6 +131,14 @@ h1 {
     padding: 5px;
     gap: 10px;
     
+  }
+  .count-div{
+    height: 20px;
+    width: 40px;
+    border: 1px;
+    background-color: white;
+    padding: 5px;
+    margin: 10px;
   }
   .button-section button{
         border-radius: 5px;
@@ -138,13 +154,23 @@ h1 {
   .lift-section {
     position: relative;
     width: 80px; /* Width of the entire lift */
-    height: 100px; /* Height of the lift */
-    background-color: #ddd;
+    height: 100%; /* Height of the lift */
+    background-color: white;
     display: flex;
     justify-content: space-between;
     border: 2px solid #333;
     margin-left: 60px; /* Add some space from the floor number */
     align-items: center;
+    transition: transform 1s ease-in-out;
+}
+.lift-no{
+    color: #310505;
+    font-size: 20px;
+    align-items: center;
+   
+    padding: 10px;
+
+    
 }
 .lift-section div {
     width: 45%; /* Each door takes up half of the lift width with a small gap */

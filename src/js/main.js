@@ -2,6 +2,7 @@ const form = document.getElementById('form');
 const main = document.getElementsByClassName('start')[0];
 const buildingFloor = document.getElementById('floor-section');
 const body = document.querySelector('.container');
+const h1 = document.getElementById("H1");
 
 const liftState = {
     lifts: [],
@@ -15,10 +16,14 @@ form.addEventListener('submit', function(event) {
             document.body.style.alignItems = "flex-start";
             document.documentElement.style.justifyContent = "flex-start"; // for html element
             document.documentElement.style.alignItems = "flex-start"; 
+
+   
         
     
     const floorCount = document.getElementById('floors').value;
     const liftCount = document.getElementById('lifts').value;
+     h1.innerText = `Lift Simulation with ${floorCount} Floors and ${liftCount} Lifts` 
+     h1.style.justifyContent = "center"
 
     createFloors(floorCount, liftCount);
     createLifts(liftCount);
@@ -38,6 +43,7 @@ function createFloors(floors, lifts) {
 
         const floorNumber = floors - i - 1;
         const floorNo = document.createElement('p');
+        floorNo.id = `floor ${floorNumber}`
         floorNo.innerHTML = `Floor ${floorNumber}`;
 
         const buttonSection = document.createElement('div');
@@ -50,9 +56,13 @@ function createFloors(floors, lifts) {
         const downButton = document.createElement('button');
         downButton.id = `down${floorNumber}`;
         downButton.innerHTML = "Down";
+        const countDiv = document.createElement('div')
+        countDiv.innerHTML = '';
+        countDiv.classList.add('count-div')
 
        { i!==0 &&buttonSection.appendChild(upButton)};
         {i!== floors-1 && buttonSection.appendChild(downButton)};
+        
 
         upButton.onclick = () => handleRequest(floorNumber);
         downButton.onclick = () => handleRequest(floorNumber);
@@ -77,14 +87,20 @@ function createLifts(lifts) {
 
         const leftDoor = document.createElement('div');
         const rightDoor = document.createElement('div');
+        const liftNo = document.createElement('p');
+        liftNo.classList.add('lift-no')
         leftDoor.className = 'door left-door';
         rightDoor.className = 'door right-door';
 
         leftDoor.id = `left-door${i}`;
         rightDoor.id = `right-door${i}`;
 
+        
+        
+        leftDoor.appendChild(liftNo)
         liftSection.appendChild(leftDoor);
         liftSection.appendChild(rightDoor);
+        
         liftSection.id = `liftSection${i}`;
 
         bottomFloor.appendChild(liftSection);
@@ -120,7 +136,7 @@ function moveLift(liftIndex, targetFloor) {
     }, moveDuration);
     
     liftElement.style.transition = `transform ${moveDuration}ms ease-in-out`;
-    liftElement.style.transform = `translateY(-${(targetFloor) * 160 }px)`; // Negative for upward movement
+    liftElement.style.transform = `translateY(-${(targetFloor) * 150 }px)`; // Negative for upward movement
 }
 function checkPendingRequests() {
     liftState.floors.forEach((floor, index) => {

@@ -61,7 +61,7 @@ function createFloors(floors, lifts) {
         countDiv.innerHTML = '';
         countDiv.classList.add('count-div')
 
-       { i!==0 &&buttonSection.appendChild(upButton)};
+       { (i!==0  || floors == 1) && buttonSection.appendChild(upButton)};
         {i!== floors-1 && buttonSection.appendChild(downButton)};
         
 

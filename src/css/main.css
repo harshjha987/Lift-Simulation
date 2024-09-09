@@ -98,6 +98,7 @@ h1 {
      /* Box shadow with transparency */
      background-color: #444;
      padding: 10px;
+     
 }
 
 /* Optional: Add spacing between floors using padding */
@@ -105,6 +106,7 @@ h1 {
     padding-top: 10px; 
     padding-bottom: 10px;
     /* Add spacing between floor sections */
+    
 }
 
   .floor-section p {
@@ -125,7 +127,9 @@ h1 {
      display: flex;
     align-items: center; /* Align content vertically */
     justify-content: center;
+    
 }
+
   .button-section{
     border: none;
     padding: 5px;
@@ -158,7 +162,7 @@ h1 {
     background-color: #cccccc; /* Gray background */
     color: #666666; /* Dark gray text */
     cursor: not-allowed; /* Not-allowed cursor */
-    opacity: 0.6; /* Slight transparency */
+    opacity: 0.5; /* Slight transparency */
 }
   .lift-section {
     position: relative;
@@ -171,7 +175,10 @@ h1 {
     margin-left: 60px; /* Add some space from the floor number */
     align-items: center;
     transition: transform 1s ease-in-out;
+   
 }
+   
+
 .lift-no{
     color: #310505;
     font-size: 20px;
@@ -182,7 +189,7 @@ h1 {
     
 }
 .lift-section div {
-    width: 45%; /* Each door takes up half of the lift width with a small gap */
+    width: 49%; /* Each door takes up half of the lift width with a small gap */
     height: 100%;
     background-color: #666; /* Color of the lift doors */
 }
